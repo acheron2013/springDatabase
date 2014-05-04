@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.jet_sys.databaseTest</groupId>
+	<artifactId>databaseTest</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<properties>
+
+		<!-- Generic properties -->
+		<java.version>1.6</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<!-- Spring -->
+		<spring-framework.version>3.2.5.RELEASE</spring-framework.version>
+
+		<!-- Spring load time weaving agent -->
+		<spring-agent-version>2.5.6.SEC03</spring-agent-version>
+		<!-- AspectJ Weaver Version -->
+		<aspectj-weaver-version>1.8.0</aspectj-weaver-version>
+
+
+		<!-- Logging -->
+		<logback.version>1.0.13</logback.version>
+		<slf4j.version>1.7.5</slf4j.version>
+
+		<!-- Eclipselink -->
+		<eclipselink.version>2.5.1</eclipselink.version>
+
+		<!-- Test -->
+		<junit.version>4.11</junit.version>
+
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.17</version>
+				<configuration>
+					<systemProperties>
+						<!-- <property> <name>com.gxs.ieexb.IeexbConfigFile</name> <value>RunTime/ieexb.config</value>
+							</property> <property> <name>log4j.configuration</name> <value>file:WebContent/WEB-INF/log4j.properties</value>
+							</property> -->
+						<property>
+							<name>log4j.debug</name>
+							<value>true</value>
+						</property>
+					</systemProperties>
+					<additionalClasspathElements>
+						<additionalClasspathElement>${project.basedir}/target/classes/main/resources</additionalClasspathElement>
+					</additionalClasspathElements>
+					<forkMode>once</forkMode>
+					<argLine>
+						-javaagent:${user.home}/.m2/repository/org/springframework/spring-instrument/${spring-framework.version}/spring-instrument-${spring-framework.version}.jar
+						-javaagent:${user.home}/org/aspectj/aspectjweaver/${aspectj-weaver-version}/aspectjweaver-${aspectj-weaver-version}.jar
+					</argLine>
+					<useSystemClassloader>true</useSystemClassloader>
+
+
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<!-- Spring and Transactions -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+
+
+		<!-- load time weaving agents -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-agent</artifactId>
+			<version>${spring-agent-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-instrument</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${aspectj-weaver-version}</version>
+		</dependency>
+
+		<!-- Spring JPAs -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>1.5.1.RELEASE</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
+		<!-- Logging with SLF4J & LogBack -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Eclipselink -->
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>org.eclipse.persistence.core</artifactId>
+			<version>${eclipselink.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>eclipselink</artifactId>
+			<version>${eclipselink.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>org.eclipse.persistence.jpa</artifactId>
+			<version>${eclipselink.version}</version>
+		</dependency>
+		<!-- Postgres -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.3-1101-jdbc4</version>
+		</dependency>
+
+
+		<!-- Test Artifacts -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring-framework.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+			<version>1.0.0.RELEASE</version>
+		</dependency>
+	</dependencies>
+</project>
