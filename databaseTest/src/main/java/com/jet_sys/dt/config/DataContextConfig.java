@@ -67,33 +67,24 @@ public class DataContextConfig {
 		return jpaDialect;
 	}
 
-@Bean()
+	@Bean()
 	public FactoryBean<EntityManagerFactory> entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
-		//emf.setPackagesToScan("com.gxs.ieexb.jpa");
+		// emf.setPackagesToScan("com.jet_sys.dt.jpa");
 		emf.setPackagesToScan(new String[] { "com.jet_sys.dt.model" });
 		emf.setPersistenceUnitName(persistenceUnitName);
 		emf.setDataSource(dataSource());
-		//emf.setLoadTimeWeaver(loadTimeWeaver());
 		emf.setJpaDialect(new EclipseLinkJpaDialect());
 		emf.setJpaVendorAdapter(eclipseLinkJpaVendorAdapter());
-		//emf.setPersistenceProvider(persistenceProvider());
 		return emf;
 	}
 
-@Bean
-public PlatformTransactionManager transactionManager() throws Exception {
+	@Bean
+	public PlatformTransactionManager transactionManager() throws Exception {
 
-  JpaTransactionManager txManager = new JpaTransactionManager();
-  txManager.setEntityManagerFactory(entityManagerFactory);
-  return txManager;
-}
-
-
-//	@Bean()
-//	public LoadTimeWeaver loadTimeWeaver() {
-//		LoadTimeWeaver loadTimeWeaver = new ReflectiveLoadTimeWeaver();
-//		return loadTimeWeaver;
-//	}
+		JpaTransactionManager txManager = new JpaTransactionManager();
+		txManager.setEntityManagerFactory(entityManagerFactory);
+		return txManager;
+	}
 
 }
